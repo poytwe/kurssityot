@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <meta charset="utf-8"> 
+
+    <title>Mestarit</title> 
+
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">  
+    <link rel="stylesheet" href="style.css"> 
+  </head> 
+
+  <body> 
+
+      <header> 
+
+      </header> 
+
+      <section> 
+
+      </section> 
+
+    <script> 
+    var header = document.querySelector('header'); 
+    var section = document.querySelector('section'); 
+    var requestURL = 'http://magnesium/15tvpt07a/verneri.poytalaakso/JSON/mestarit.json'; 
+	var request = new XMLHttpRequest();
+	request.open('GET', requestURL);	
+	request.responseType = 'json';
+	request.send();
+	request.onload = function() {
+	var mestarit = request.response;
+	populateHeader(mestarit);
+	naytaMestarit(mestarit); 
+	}
+	
+	function populateHeader(jsonObj) {
+	var myH1 = document.createElement('h1');
+	myH1.textContent = jsonObj['listanNimi'];
+	header.appendChild(myH1);
+
+	var myPara = document.createElement('p');
+	myPara.textContent = 'Kotipaikka: ' + jsonObj['kotipaikka'] + ' // Perustettu: ' + jsonObj['muodostettu'];
+	header.appendChild(myPara);
+	}
+	
+	function naytaMestarit(jsonObj) {
+	var mestariluettelo = jsonObj['jasenet'];
+	for(var i = 0; i < mestariluettelo.length; i++) {
+	var myArticle = document.createElement('article');
+	var myH2 = document.createElement('h2');
+	var myPara1 = document.createElement('p');
+	var myPara2 = document.createElement('p');
+	var myPara3 = document.createElement('p');
+	var myList = document.createElement('ul');
+	myH2.textContent = mestariluettelo[i].nimi;
+	myPara1.textContent = 'Lempinimi: ' + mestariluettelo[i].lempinimi;
+	myPara2.textContent = 'Ikä: ' + mestariluettelo[i].ika;
+	myPara3.textContent = 'Vahvuudet:';
+	var vahvuus = mestariluettelo[i].vahvuudet;
+	for(var j = 0; j < vahvuus.length; j++) {
+	var listItem = document.createElement('li');
+	listItem.textContent = vahvuus[j];
+	myList.appendChild(listItem);
+	}
+	myArticle.appendChild(myH2);
+	myArticle.appendChild(myPara1);
+	myArticle.appendChild(myPara2);
+	myArticle.appendChild(myPara3);
+	myArticle.appendChild(myList);
+	section.appendChild(myArticle);
+	}
+	}
+	
+	
+    </script> 
+  </body> 
+</html>

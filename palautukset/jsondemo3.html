@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+
+<h2>Tallenna ja hae dataa paikallisesti</h2> 
+
+<p id="demo"></p> 
+
+<script> 
+var myObj, myothertObj, myJSON, myotherJSON, othertext, text, otherobj, obj; 
+
+//Tallenna data: 
+myObj = { "nimi":"Eemeli", "age":17, "koti":"Tampere" }; 
+myotherObj = { "nimi":"Aatu", "age":35, "koti":"Helsinki"};
+myJSON = JSON.stringify(myObj); 
+myotherJSON = JSON.stringify(myotherObj); 
+localStorage.setItem("testJSON", myJSON); 
+localStorage.setItem("otherJSON", myotherJSON); 
+
+//Hae data: 
+text = localStorage.getItem("testJSON"); 
+obj = JSON.parse(text); 
+
+othertext = localStorage.getItem("otherJSON"); 
+otherobj = JSON.parse(othertext); 
+
+document.getElementById("demo").innerHTML = obj.nimi + " " + otherobj.nimi; 
+</script> 
+
+</body> 
+</html> 
