@@ -1,0 +1,26 @@
+extends layout 
+
+block content 
+    h1=title 
+    <hr> 
+        if error 
+            p Virhe!! 
+        else 
+        h1= task.id 
+        - var id=task.id 
+        - var tasktitle=task.title 
+        - var taskstatus=task.status 
+        article  
+            form(method='POST' action='') 
+                div.form-group 
+                    label(for='title') Tehtävä: 
+                    input#title.form-control(type='text', name='title' value=tasktitle) 
+                div.form-group 
+                    label(for='status') Status: 
+                    input(type='radio', name='status', value='pending', checked=taskstatus=="pending") 
+                    |    Pending 
+                    input(type='radio', name='status', value='done') 
+                    |    Done 
+                button.btn.btn-primary(type='submit') Päivitä 
+
+                     
